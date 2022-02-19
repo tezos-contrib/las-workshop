@@ -1,0 +1,22 @@
+{
+  "name": "las-workshop",
+  "version": "1.0.0",
+  "description": "This is the LAS Workshop project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tezos-contrib/las-workshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tezos-contrib/las-workshop/issues"
+  },
+  "homepage": "https://github.com/tezos-contrib/las-workshop#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
