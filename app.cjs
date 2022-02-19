@@ -1,20 +1,48 @@
-"use strict";
-
 //Load HTTP module
+const express = require('express');
+const fs = require('fs');
 const http = require("http");
+const path = require('path');
 const hostname = '127.0.0.1';
-const port = 3000;
 
-//Create HTTP server and listen on port 3000 for requests
-const server = http.createServer((req, res) => {
+const app = express();
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || 'localhost';
 
-  //Set the response HTTP header with HTTP status and Content type
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+app.set('views', path.join(__dirname, 'public/pages'));
+app.set('view engine', 'ejs');
+
+app.listen(
+  port,
+  () => console.log('Server started on port ' + port)
+)
+
+app.get(`/gallery`, (req, res) => {
+  console.log("get /gallery");
+  res.render('gallery', {
+    gallery_images: gallery_images.sort((a, b) => 0.5 - Math.random())
+  }
+  );
 });
 
-//listen for request on port 3000, and as a callback function have the port listened on logged
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+
+function filenamesWithAlts(files) {
+  list = [];
+  for (const file of files) {
+list.push({
+    'filename': encodeURIComponent(file),
+    'alt': file.split('.')[0] });
+
+  }
+return list;
+}
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(path.join(__dirname + 'public/img')));
+
+var gallery_images = [];
+fs.readdir("public/img/gallery", function(err, files) {
+  if (files !== undefined) {
+      gallery_images = filenamesWithAlts(files);
+  }
 });
