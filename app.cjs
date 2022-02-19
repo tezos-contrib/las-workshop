@@ -26,6 +26,24 @@ app.get(`/gallery`, (req, res) => {
 });
 
 
+app.get(`/create`, (req, res) => {
+  console.log("get /gallery");
+  res.render('create', {
+    gallery_images: gallery_images.sort((a, b) => 0.5 - Math.random())
+  }
+  );
+});
+
+
+app.get(`/buy`, (req, res) => {
+  console.log("get /gallery");
+  res.render('buy', {
+    gallery_images: gallery_images.sort((a, b) => 0.5 - Math.random())
+  }
+  );
+});
+
+
 function filenamesWithAlts(files) {
   list = [];
   for (const file of files) {
